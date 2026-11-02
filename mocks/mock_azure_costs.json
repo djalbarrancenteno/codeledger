@@ -1,0 +1,25 @@
+{
+  "proveedor": "Azure",
+  "rango_fechas": {
+    "inicio": "2026-11-01",
+    "fin": "2026-11-02"
+  },
+  "cargos": [
+    {
+      "id_transaccion": "az-inv-202611-884",
+      "tag_proyecto": "PRJ-002",
+      "servicio": "Azure App Service",
+      "monto": 210.0,
+      "moneda": "USD",
+      "fecha_consumo": "2026-11-02T12:00:00Z"
+    },
+    {
+      "id_transaccion": "az-inv-202611-885",
+      "tag_proyecto": "PRJ-002",
+      "servicio": "Azure Blob Storage",
+      "monto": 15.75,
+      "moneda": "USD",
+      "fecha_consumo": "2026-11-02T12:00:00Z"
+    }
+  ]
+}

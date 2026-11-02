@@ -1,0 +1,25 @@
+{
+  "proveedor": "AWS",
+  "rango_fechas": {
+    "inicio": "2026-11-01",
+    "fin": "2026-11-02"
+  },
+  "cargos": [
+    {
+      "id_transaccion": "aws-inv-202611-001",
+      "tag_proyecto": "PRJ-001",
+      "servicio": "Amazon EC2 (Compute)",
+      "monto": 145.5,
+      "moneda": "USD",
+      "fecha_consumo": "2026-11-01T23:59:59Z"
+    },
+    {
+      "id_transaccion": "aws-inv-202611-002",
+      "tag_proyecto": "PRJ-001",
+      "servicio": "Amazon RDS (Database)",
+      "monto": 89.25,
+      "moneda": "USD",
+      "fecha_consumo": "2026-11-01T23:59:59Z"
+    }
+  ]
+}
