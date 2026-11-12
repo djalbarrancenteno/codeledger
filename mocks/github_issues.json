@@ -1,0 +1,62 @@
+[
+  {
+    "issue_id": "GH-901",
+    "project_code": "PRJ-001",
+    "hito": "Checkout y pagos",
+    "title": "Optimizar conversión del checkout móvil",
+    "story": "US-201 Checkout",
+    "estimate": 34,
+    "status": "Open",
+    "category": "Billable"
+  },
+  {
+    "issue_id": "GH-902",
+    "project_code": "PRJ-001",
+    "hito": "Checkout y pagos",
+    "title": "Idempotencia en webhooks de pago",
+    "story": "US-202 Pagos",
+    "estimate": 22,
+    "status": "Closed",
+    "category": "Billable"
+  },
+  {
+    "issue_id": "GH-903",
+    "project_code": "PRJ-002",
+    "hito": "Motor de pagos",
+    "title": "Conciliación automática de transferencias",
+    "story": "US-203 Core bancario",
+    "estimate": 48,
+    "status": "Open",
+    "category": "Billable"
+  },
+  {
+    "issue_id": "GH-904",
+    "project_code": "PRJ-003",
+    "hito": "Soporte y evolución",
+    "title": "Telemetría de adherencia al tratamiento",
+    "story": "US-204 Salud",
+    "estimate": 16,
+    "status": "Open",
+    "category": "Billable"
+  },
+  {
+    "issue_id": "GH-905",
+    "project_code": "PRJ-004",
+    "hito": "Plataforma MVP",
+    "title": "Asistente de clasificación contable",
+    "story": "US-205 I+D",
+    "estimate": 40,
+    "status": "Open",
+    "category": "I+D"
+  },
+  {
+    "issue_id": "GH-906",
+    "project_code": "PRJ-005",
+    "hito": "Ingesta y gobierno de datos",
+    "title": "Validación de esquemas en el pipeline",
+    "story": "US-206 Data",
+    "estimate": 28,
+    "status": "Open",
+    "category": "Billable"
+  }
+]
