@@ -115,7 +115,7 @@ render_header('Proyectos', $user, 'projects');
     </div>
 </form>
 
-<div class="row g-3">
+<div class="row g-3" data-paginate data-paginate-controls="#projectsPager" data-paginate-label="proyectos">
 <?php foreach ($metrics as $m): ?>
     <div class="col-md-6 col-xxl-4">
         <div class="card project-card">
@@ -165,6 +165,7 @@ render_header('Proyectos', $user, 'projects');
     <div class="col-12"><div class="card"><div class="empty-state"><i class="bi bi-kanban"></i>No hay proyectos que coincidan con el filtro.</div></div></div>
 <?php endif; ?>
 </div>
+<div class="cl-pager-host cl-pager-host--plain" id="projectsPager"></div>
 
 <?php if ($canManage): ?>
 <div class="modal fade" id="newProjectModal" tabindex="-1">

@@ -228,7 +228,7 @@ render_header('Reportes de rentabilidad', $user, 'reports');
 
 <div class="card mb-4">
     <div class="card-header"><span>Rentabilidad por proyecto</span><span class="section-sub"><?= count($projectRows) ?> proyecto(s)</span></div>
-    <div class="table-responsive">
+    <div class="table-responsive" data-paginate data-paginate-controls="#reportsPager" data-paginate-label="proyectos">
         <table class="table table-hover align-middle">
             <thead>
                 <tr>
@@ -277,6 +277,7 @@ render_header('Reportes de rentabilidad', $user, 'reports');
             <?php endif; ?>
         </table>
     </div>
+    <div class="cl-pager-host" id="reportsPager"></div>
 </div>
 
 <div class="row g-3 mb-4">

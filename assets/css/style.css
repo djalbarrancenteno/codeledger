@@ -769,3 +769,66 @@ dialog.cl-dialog::backdrop { background: rgba(6, 9, 18, .55); backdrop-filter: b
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+/* --------------------------------------------------------------------------
+   Paginación adaptable (assets/js/pagination.js)
+   -------------------------------------------------------------------------- */
+.card > .table-responsive:not(:last-child) { border-radius: var(--cl-radius) var(--cl-radius) 0 0; }
+.cl-pager-host {
+    padding: .7rem 1rem;
+    border-top: 1px solid var(--cl-line);
+    background: var(--cl-surface-2);
+    border-radius: 0 0 var(--cl-radius) var(--cl-radius);
+}
+.cl-pager-host--plain {
+    padding: .25rem 0 0;
+    border-top: 0;
+    background: transparent;
+    border-radius: 0;
+}
+.cl-pager {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .6rem 1rem;
+}
+.cl-pager-info { margin: 0; font-size: .78rem; color: var(--cl-muted); font-variant-numeric: tabular-nums; }
+.cl-pager-info strong { color: var(--cl-ink-2); font-weight: 600; }
+.cl-pager-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem 1rem; margin-left: auto; }
+.cl-pager-size { display: inline-flex; align-items: center; gap: .4rem; margin: 0; font-size: .74rem; color: var(--cl-muted); white-space: nowrap; }
+.cl-pager-size select {
+    width: auto;
+    padding: .18rem 1.6rem .18rem .45rem;
+    font-size: .74rem;
+    border: 1px solid var(--cl-line-strong);
+    border-radius: 7px;
+    background-color: var(--cl-input-bg);
+    color: var(--cl-ink-2);
+}
+.cl-pager .pagination { margin: 0; gap: 2px; }
+.cl-pager .page-link {
+    display: grid;
+    place-items: center;
+    min-width: 1.95rem;
+    height: 1.95rem;
+    padding: 0 .4rem;
+    border: 1px solid var(--cl-line);
+    border-radius: 8px;
+    background: var(--cl-surface);
+    color: var(--cl-ink-2);
+    font-size: .78rem;
+    line-height: 1;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.cl-pager .page-link:hover { background: var(--cl-surface-hover); border-color: var(--cl-line-strong); color: var(--cl-ink); }
+.cl-pager .page-link:focus-visible { outline: 0; box-shadow: var(--cl-ring); }
+.cl-pager .page-item.active .page-link { background: var(--cl-btn); border-color: var(--cl-btn); color: #fff; font-weight: 600; }
+.cl-pager .page-item.disabled .page-link { opacity: .4; pointer-events: none; }
+.cl-pager .page-item.disabled .page-link[aria-label] { pointer-events: none; }
+@media (max-width: 575.98px) {
+    .cl-pager { justify-content: center; }
+    .cl-pager-controls { margin-left: 0; justify-content: center; }
+    .cl-pager-info { width: 100%; text-align: center; }
+    .cl-pager .page-link { min-width: 1.8rem; height: 1.8rem; }
+}

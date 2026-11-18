@@ -136,7 +136,7 @@ render_header('Tarifas y equipo', $user, 'rates');
     <div class="col-xxl-8">
         <div class="card">
             <div class="card-header"><span>Equipo y tasas</span><span class="section-sub">Costo/hora real vs. tarifa de venta</span></div>
-            <div class="table-responsive">
+            <div class="table-responsive" data-paginate data-paginate-controls="#ratesPager" data-paginate-label="colaboradores">
                 <table class="table table-hover align-middle">
                     <thead>
                     <tr>
@@ -182,6 +182,7 @@ render_header('Tarifas y equipo', $user, 'rates');
                     </tbody>
                 </table>
             </div>
+            <div class="cl-pager-host" id="ratesPager"></div>
         </div>
     </div>
 

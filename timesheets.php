@@ -169,7 +169,7 @@ render_header('Timesheets', $user, 'timesheets');
 
 <div class="card">
     <div class="card-header"><span>Registros entre <?= fmt_date($from) ?> y <?= fmt_date($to) ?></span><span class="section-sub">Máximo 400 registros</span></div>
-    <div class="table-responsive">
+    <div class="table-responsive" data-paginate data-paginate-controls="#tsPager" data-paginate-label="registros de horas">
         <table class="table table-hover align-middle">
             <thead><tr><th>Fecha</th><?php if (!$dev): ?><th>Colaborador</th><?php endif; ?><th>Proyecto / Tarea</th><th>Categoría</th><th class="num">Horas</th><?php if ($isCfo): ?><th class="num">Costo</th><?php endif; ?><th class="num">Valor</th><th>Estado</th><th></th></tr></thead>
             <tbody>
@@ -206,6 +206,7 @@ render_header('Timesheets', $user, 'timesheets');
             </tbody>
         </table>
     </div>
+    <div class="cl-pager-host" id="tsPager"></div>
 </div>
 
 <div class="modal fade" id="newTimeModal" tabindex="-1">

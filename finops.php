@@ -225,7 +225,7 @@ render_header('FinOps', $user, 'finops');
     <div class="col-xl-7">
         <div class="card h-100">
             <div class="card-header"><span>Detalle de consumos</span><span class="section-sub"><?= count($consumptions) ?> registros · <?= fmt_money($monthTotal) ?></span></div>
-            <div class="table-responsive">
+            <div class="table-responsive" data-paginate data-paginate-controls="#finopsPager" data-paginate-label="consumos cloud">
                 <table class="table table-hover align-middle">
                     <thead><tr><th>Fecha</th><th>Proyecto</th><th>Proveedor / Servicio</th><th>Categoría</th><th class="num">Monto</th></tr></thead>
                     <tbody>
@@ -242,6 +242,7 @@ render_header('FinOps', $user, 'finops');
                     </tbody>
                 </table>
             </div>
+            <div class="cl-pager-host" id="finopsPager"></div>
         </div>
     </div>
     <div class="col-xl-5">
@@ -281,7 +282,7 @@ render_header('FinOps', $user, 'finops');
         <span>Presupuestos y consumos del mes</span>
         <button class="btn btn-sm btn-ghost" data-bs-toggle="modal" data-bs-target="#newBudgetModal"><i class="bi bi-plus-lg"></i> Nuevo presupuesto</button>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive" data-paginate data-paginate-controls="#budgetsPager" data-paginate-label="presupuestos">
         <table class="table table-hover align-middle">
             <thead><tr><th>Proyecto</th><th>Proveedor</th><th>Servicio</th><th class="num">Presupuesto</th><th class="num">Consumido</th><th>Estado</th><th></th></tr></thead>
             <tbody>
@@ -304,6 +305,7 @@ render_header('FinOps', $user, 'finops');
             </tbody>
         </table>
     </div>
+    <div class="cl-pager-host" id="budgetsPager"></div>
 </div>
 
 <div class="modal fade" id="newCostModal" tabindex="-1">

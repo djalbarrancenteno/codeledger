@@ -474,7 +474,7 @@ render_header('Facturación y reconocimiento de ingresos', $user, 'billing');
 
 <div class="card mb-4">
     <div class="card-header"><span>Comprobantes</span><span class="section-sub"><?= count($invoices) ?> resultados</span></div>
-    <div class="table-responsive">
+    <div class="table-responsive" data-paginate data-paginate-controls="#billingPager" data-paginate-label="comprobantes">
         <table class="table table-hover align-middle">
             <thead><tr><th>Número</th><th>Proyecto / Cliente</th><th>Tipo</th><th>Estado</th><th>Emisión</th><th>Vencimiento</th><th class="num">Monto</th><th class="num">USD</th><th class="num">Reconocido</th><th></th></tr></thead>
             <tbody>
@@ -484,7 +484,7 @@ render_header('Facturación y reconocimiento de ingresos', $user, 'billing');
                 $details = $detailsByInvoice[(int)$invoice['id_comprobante']] ?? [];
                 $recPct = $rec && (float)$rec['monto_total'] > 0 ? (float)$rec['monto_reconocido'] / (float)$rec['monto_total'] : 0;
                 ?>
-                <tr>
+                <tr data-paginate-group="<?= (int)$invoice['id_comprobante'] ?>">
                     <td>
                         <div class="fw-semibold"><?= e($invoice['numero_correlativo']) ?></div>
                         <div class="text-muted small"><?= $details ? count($details) . ' línea(s)' : 'Sin detalle' ?></div>
@@ -531,7 +531,7 @@ render_header('Facturación y reconocimiento de ingresos', $user, 'billing');
                     </td>
                 </tr>
                 <?php if ($details): ?>
-                <tr class="collapse" id="det-<?= (int)$invoice['id_comprobante'] ?>">
+                <tr class="collapse" id="det-<?= (int)$invoice['id_comprobante'] ?>" data-paginate-group="<?= (int)$invoice['id_comprobante'] ?>">
                     <td colspan="10" class="bg-light">
                         <div class="p-2">
                             <div class="fw-semibold small mb-2">Detalle de <?= e($invoice['numero_correlativo']) ?></div>
@@ -560,6 +560,7 @@ render_header('Facturación y reconocimiento de ingresos', $user, 'billing');
             </tbody>
         </table>
     </div>
+    <div class="cl-pager-host" id="billingPager"></div>
 </div>
 
 <div class="row g-3 mb-4" id="retainers">

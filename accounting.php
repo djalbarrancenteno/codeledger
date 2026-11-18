@@ -246,7 +246,7 @@ render_header('Contabilidad IAS 38', $user, 'accounting');
 
 <div class="card mb-4">
     <div class="card-header"><span>Reglas de capitalización y costos por fase</span><span class="section-sub"><?= $isCfo ? 'Configurables por proyecto' : 'Solo lectura · los cambios los realiza el CFO' ?></span></div>
-    <div class="table-responsive">
+    <div class="table-responsive" data-paginate data-paginate-controls="#accountingRulesPager" data-paginate-label="reglas contables">
         <table class="table table-hover align-middle">
             <thead>
                 <tr>
@@ -262,7 +262,7 @@ render_header('Contabilidad IAS 38', $user, 'accounting');
                     $rule = $row['rules'][$phase] ?? null;
                     $treatment = $detail['tratamiento'];
                 ?>
-                    <tr>
+                    <tr data-paginate-group="<?= (int)$project['id_proyecto'] ?>">
                         <td>
                             <div class="fw-semibold"><?= e($project['codigo_unico']) ?></div>
                             <div class="text-muted small"><?= e($project['nombre_proyecto']) ?></div>
@@ -320,11 +320,12 @@ render_header('Contabilidad IAS 38', $user, 'accounting');
             </tbody>
         </table>
     </div>
+    <div class="cl-pager-host" id="accountingRulesPager"></div>
 </div>
 
 <div class="card">
     <div class="card-header"><span>Registro de activos intangibles y amortización</span><span class="section-sub">Método lineal</span></div>
-    <div class="table-responsive">
+    <div class="table-responsive" data-paginate data-paginate-controls="#assetsPager" data-paginate-label="activos intangibles">
         <table class="table table-hover align-middle">
             <thead>
                 <tr><th>Activo</th><th>Proyecto</th><th>Capitalización</th><th class="num">Monto</th><th class="num">Vida útil</th><th class="num">Cuota mensual</th><th class="num">Amortizado</th><th class="num">Valor neto</th><th>Estado</th><?php if ($isCfo): ?><th></th><?php endif; ?></tr>
@@ -362,6 +363,7 @@ render_header('Contabilidad IAS 38', $user, 'accounting');
             </tbody>
         </table>
     </div>
+    <div class="cl-pager-host" id="assetsPager"></div>
 </div>
 
 <script>
