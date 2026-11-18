@@ -226,7 +226,7 @@ render_header('Integraciones', $user, 'integrations');
                                     </button>
                                 </form>
                                 <?php if ($integration['estado'] === 'Conectado'): ?>
-                                    <form method="post">
+                                    <form method="post" data-loading-text="Sincronizando…">
                                         <?= csrf_field() ?>
                                         <input type="hidden" name="action" value="run_sync">
                                         <input type="hidden" name="id_integracion" value="<?= (int)$integration['id_integracion'] ?>">

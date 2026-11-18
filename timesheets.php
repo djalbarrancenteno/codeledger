@@ -202,7 +202,7 @@ render_header('Timesheets', $user, 'timesheets');
                     </td>
                 </tr>
             <?php endforeach; ?>
-            <?php if (!$rows): ?><tr><td colspan="<?= $isCfo ? 10 : 9 ?>" class="text-center text-muted py-4">No hay registros para el filtro seleccionado.</td></tr><?php endif; ?>
+            <?php if (!$rows): ?><tr><td colspan="<?= $isCfo ? 10 : 9 ?>"><div class="empty-state"><i class="bi bi-inbox"></i>No hay registros para el filtro seleccionado.</div></td></tr><?php endif; ?>
             </tbody>
         </table>
     </div>

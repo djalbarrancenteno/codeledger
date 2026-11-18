@@ -299,7 +299,7 @@ render_header('Reportes de rentabilidad', $user, 'reports');
                             <td class="num"><?= fmt_ratio_pct($item['ingresos'] > 0 ? $item['margen'] / $item['ingresos'] : 0) ?></td>
                         </tr>
                     <?php endforeach; ?>
-                    <?php if (!$bucket): ?><tr><td colspan="4" class="text-muted text-center py-3">Sin datos</td></tr><?php endif; ?>
+                    <?php if (!$bucket): ?><tr><td colspan="4"><div class="empty-state"><i class="bi bi-inbox"></i>Sin datos</div></td></tr><?php endif; ?>
                     </tbody>
                 </table>
             </div>

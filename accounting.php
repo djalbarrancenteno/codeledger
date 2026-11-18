@@ -271,13 +271,13 @@ render_header('Contabilidad IAS 38', $user, 'accounting');
                         <td class="num"><?= fmt_money($detail['total']) ?></td>
                         <td>
                             <?php if ($isCfo): ?>
-                                <form method="post" class="d-flex gap-1 align-items-center">
+                                <form method="post" class="d-flex gap-1 align-items-center" data-confirm-change="¿Cambiar la regla contable? Afecta la clasificación OpEx/CapEx y el cálculo de amortización.">
                                     <?= csrf_field() ?>
                                     <input type="hidden" name="action" value="update_rule">
                                     <input type="hidden" name="id_proyecto" value="<?= (int)$project['id_proyecto'] ?>">
                                     <input type="hidden" name="fase" value="<?= e($phase) ?>">
                                     <input type="hidden" name="vida_util_meses" value="<?= (int)($detail['vida_util_meses'] ?: 36) ?>">
-                                    <select class="form-select form-select-sm" name="tratamiento" style="width:auto" onchange="this.form.submit()">
+                                    <select class="form-select form-select-sm" name="tratamiento" style="width:auto">
                                         <option <?= $treatment === 'OpEx' ? 'selected' : '' ?>>OpEx</option>
                                         <option <?= $treatment === 'CapEx' ? 'selected' : '' ?>>CapEx</option>
                                     </select>
@@ -288,13 +288,13 @@ render_header('Contabilidad IAS 38', $user, 'accounting');
                         </td>
                         <td class="num">
                             <?php if ($isCfo): ?>
-                                <form method="post" class="d-flex justify-content-end">
+                                <form method="post" class="d-flex justify-content-end" data-confirm-change="¿Cambiar la regla contable? Afecta la clasificación OpEx/CapEx y el cálculo de amortización.">
                                     <?= csrf_field() ?>
                                     <input type="hidden" name="action" value="update_rule">
                                     <input type="hidden" name="id_proyecto" value="<?= (int)$project['id_proyecto'] ?>">
                                     <input type="hidden" name="fase" value="<?= e($phase) ?>">
                                     <input type="hidden" name="tratamiento" value="<?= e($treatment) ?>">
-                                    <input type="number" min="1" max="120" class="form-control form-control-sm text-end" style="width:76px" name="vida_util_meses" value="<?= (int)($detail['vida_util_meses'] ?: 36) ?>" onchange="this.form.submit()">
+                                    <input type="number" min="1" max="120" class="form-control form-control-sm text-end" style="width:76px" name="vida_util_meses" value="<?= (int)($detail['vida_util_meses'] ?: 36) ?>">
                                 </form>
                             <?php else: ?>
                                 <?= (int)$detail['vida_util_meses'] ?> m

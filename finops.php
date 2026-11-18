@@ -181,7 +181,7 @@ render_header('FinOps', $user, 'finops');
         <div class="section-sub">Imputación directa por proyecto, etiquetado y alertas de desviación OpEx</div>
     </div>
     <div class="d-flex gap-2">
-        <form method="post" data-confirm="Se importarán los costos mock de AWS y Azure. ¿Continuar?">
+        <form method="post" data-confirm="Se importarán los costos mock de AWS y Azure. ¿Continuar?" data-loading-text="Sincronizando…">
             <?= csrf_field() ?><input type="hidden" name="action" value="sync">
             <button class="btn btn-ghost btn-sm" type="submit"><i class="bi bi-cloud-arrow-down"></i> Sincronizar cloud</button>
         </form>

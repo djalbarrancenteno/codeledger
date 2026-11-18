@@ -203,12 +203,12 @@ render_header($project['codigo_unico'] . ' · ' . $project['nombre_proyecto'], $
     </div>
 </div>
 
-<ul class="nav nav-pills tabs-nav" id="projectTabs" role="tablist">
+<ul class="nav tabs-nav" id="projectTabs" role="tablist">
     <li class="nav-item"><button class="nav-link <?= $tab === 'resumen' ? 'active' : '' ?>" data-bs-toggle="pill" data-bs-target="#tab-resumen" type="button">Resumen</button></li>
-    <li class="nav-item"><button class="nav-link <?= $tab === 'hitos' ? 'active' : '' ?>" data-bs-toggle="pill" data-bs-target="#tab-hitos" type="button">Hitos y tareas</button></li>
-    <li class="nav-item"><button class="nav-link <?= $tab === 'timesheets' ? 'active' : '' ?>" data-bs-toggle="pill" data-bs-target="#tab-timesheets" type="button">Timesheets</button></li>
+    <li class="nav-item"><button class="nav-link <?= $tab === 'hitos' ? 'active' : '' ?>" data-bs-toggle="pill" data-bs-target="#tab-hitos" type="button">Tareas / GitHub</button></li>
+    <li class="nav-item"><button class="nav-link <?= $tab === 'timesheets' ? 'active' : '' ?>" data-bs-toggle="pill" data-bs-target="#tab-timesheets" type="button">Horas</button></li>
     <?php if ($showFinance): ?>
-        <li class="nav-item"><button class="nav-link <?= $tab === 'finops' ? 'active' : '' ?>" data-bs-toggle="pill" data-bs-target="#tab-finops" type="button">Costos FinOps</button></li>
+        <li class="nav-item"><button class="nav-link <?= $tab === 'finops' ? 'active' : '' ?>" data-bs-toggle="pill" data-bs-target="#tab-finops" type="button">Costos Cloud</button></li>
         <li class="nav-item"><button class="nav-link <?= $tab === 'facturacion' ? 'active' : '' ?>" data-bs-toggle="pill" data-bs-target="#tab-facturacion" type="button">Facturación</button></li>
         <li class="nav-item"><button class="nav-link <?= $tab === 'contabilidad' ? 'active' : '' ?>" data-bs-toggle="pill" data-bs-target="#tab-contabilidad" type="button">Contabilidad</button></li>
     <?php endif; ?>
@@ -344,13 +344,13 @@ render_header($project['codigo_unico'] . ' · ' . $project['nombre_proyecto'], $
                                         <td class="text-end">
                                             <form method="post">
                                                 <?= csrf_field() ?><input type="hidden" name="action" value="toggle_tarea"><input type="hidden" name="id_tarea" value="<?= (int)$task['id_tarea'] ?>">
-                                                <button class="btn btn-sm btn-ghost" type="submit" title="Cambiar estado"><i class="bi bi-arrow-repeat"></i></button>
+                                                <button class="btn btn-sm btn-ghost" type="submit" title="Cambiar estado"><i class="bi bi-arrow-repeat"></i> <?= $task['estado_tarea'] === 'Closed' ? 'Reabrir' : 'Cerrar' ?></button>
                                             </form>
                                         </td>
                                     <?php endif; ?>
                                 </tr>
                             <?php endforeach; ?>
-                            <?php if (!$hitoTasks): ?><tr><td colspan="<?= $showCosts ? 7 : 6 ?>" class="text-center text-muted py-3">Sin tareas registradas.</td></tr><?php endif; ?>
+                            <?php if (!$hitoTasks): ?><tr><td colspan="<?= $showCosts ? 7 : 6 ?>"><div class="empty-state"><i class="bi bi-inbox"></i>Sin tareas registradas.</div></td></tr><?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -378,7 +378,7 @@ render_header($project['codigo_unico'] . ' · ' . $project['nombre_proyecto'], $
                             <td><?= status_badge($row['estado_aprobacion']) ?></td>
                         </tr>
                     <?php endforeach; ?>
-                    <?php if (!$timesheets): ?><tr><td colspan="<?= $showCosts ? 7 : 6 ?>" class="text-center text-muted py-4">Sin registros de tiempo.</td></tr><?php endif; ?>
+                    <?php if (!$timesheets): ?><tr><td colspan="<?= $showCosts ? 7 : 6 ?>"><div class="empty-state"><i class="bi bi-inbox"></i>Sin registros de tiempo.</div></td></tr><?php endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -403,7 +403,7 @@ render_header($project['codigo_unico'] . ' · ' . $project['nombre_proyecto'], $
                             <td class="num fw-semibold"><?= fmt_money($row['monto_cargado'], $row['moneda']) ?></td>
                         </tr>
                     <?php endforeach; ?>
-                    <?php if (!$clouds): ?><tr><td colspan="6" class="text-center text-muted py-4">Sin consumos registrados.</td></tr><?php endif; ?>
+                    <?php if (!$clouds): ?><tr><td colspan="6"><div class="empty-state"><i class="bi bi-inbox"></i>Sin consumos registrados.</div></td></tr><?php endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -428,7 +428,7 @@ render_header($project['codigo_unico'] . ' · ' . $project['nombre_proyecto'], $
                             <td class="num fw-semibold"><?= fmt_money($invoice['monto_total_usd']) ?></td>
                         </tr>
                     <?php endforeach; ?>
-                    <?php if (!$invoices): ?><tr><td colspan="7" class="text-center text-muted py-4">Sin comprobantes.</td></tr><?php endif; ?>
+                    <?php if (!$invoices): ?><tr><td colspan="7"><div class="empty-state"><i class="bi bi-inbox"></i>Sin comprobantes.</div></td></tr><?php endif; ?>
                     </tbody>
                 </table>
             </div>

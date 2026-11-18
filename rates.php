@@ -175,7 +175,7 @@ render_header('Tarifas y equipo', $user, 'rates');
                                 <div class="progress"><div class="progress-bar <?= $uPct >= .7 ? 'bg-success' : ($uPct >= .5 ? 'bg-warning' : 'bg-danger') ?>" style="width:<?= min(100, $uPct * 100) ?>%"></div></div>
                             </td>
                             <?php if ($isCfo): ?>
-                                <td class="text-end"><a href="rates.php?usuario=<?= (int)$member['id_usuario'] ?>" class="btn btn-sm btn-ghost"><i class="bi bi-pencil"></i></a></td>
+                                <td class="text-end"><a href="rates.php?usuario=<?= (int)$member['id_usuario'] ?>" class="btn btn-sm btn-ghost" title="Ver y editar costos" aria-label="Ver y editar costos"><i class="bi bi-pencil"></i></a></td>
                             <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
@@ -200,9 +200,9 @@ render_header('Tarifas y equipo', $user, 'rates');
                                     <td class="num">
                                         <?php $value = $matrix[$role][$modality] ?? 0; ?>
                                         <?php if ($isCfo): ?>
-                                            <form method="post" class="d-inline">
+                                            <form method="post" class="d-inline" data-confirm-change="¿Guardar la nueva tarifa de venta? Se aplicará con vigencia desde hoy.">
                                                 <?= csrf_field() ?><input type="hidden" name="action" value="update_tarifa"><input type="hidden" name="rol" value="<?= e($role) ?>"><input type="hidden" name="modalidad_contratacion" value="<?= e($modality) ?>">
-                                                <input type="number" step="0.01" min="0" class="form-control form-control-sm text-end" style="width:82px" name="monto_hora" value="<?= e($value) ?>" onchange="this.form.submit()">
+                                                <input type="number" step="0.01" min="0" class="form-control form-control-sm text-end" style="width:82px" name="monto_hora" value="<?= e($value) ?>">
                                             </form>
                                         <?php else: ?>
                                             <?= $value > 0 ? fmt_money($value) : '—' ?>
@@ -214,7 +214,7 @@ render_header('Tarifas y equipo', $user, 'rates');
                         </tbody>
                     </table>
                 </div>
-                <?php if ($isCfo): ?><div class="text-muted small mt-2"><i class="bi bi-info-circle"></i> Cambia un valor y se guarda automáticamente con vigencia de hoy.</div><?php endif; ?>
+                <?php if ($isCfo): ?><div class="text-muted small mt-2"><i class="bi bi-info-circle"></i> Cambia un valor y confirma para guardarlo con vigencia de hoy.</div><?php endif; ?>
             </div>
         </div>
 
@@ -235,12 +235,12 @@ render_header('Tarifas y equipo', $user, 'rates');
 
 <?php if ($isCfo && $selected): ?>
     <?php $rate = fully_loaded_rate((int)$selected['id_usuario']); $costs = $costsByUser[(int)$selected['id_usuario']] ?? []; $billable = $matrix[$selected['nivel']][$selected['modalidad_contratacion'] ?? 'Interno'] ?? 0; ?>
-    <div class="card mt-4">
-        <div class="card-header">
-            <span>Detalle de costos · <?= e($selected['nombre_completo']) ?></span>
-            <a href="rates.php" class="btn btn-sm btn-ghost">Cerrar</a>
+    <div class="offcanvas offcanvas-end cl-drawer" tabindex="-1" id="memberDrawer" aria-labelledby="memberDrawerTitle" data-auto-open data-return-url="rates.php">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="memberDrawerTitle">Detalle de costos · <?= e($selected['nombre_completo']) ?></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
         </div>
-        <div class="card-body">
+        <div class="offcanvas-body">
             <div class="row g-4">
                 <div class="col-lg-6">
                     <h4 class="section-title mb-3" style="font-size:.92rem">Ficha salarial</h4>
@@ -288,7 +288,7 @@ render_header('Tarifas y equipo', $user, 'rates');
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
-                            <?php if (!$costs): ?><tr><td colspan="5" class="text-muted text-center py-3">Sin costos indirectos.</td></tr><?php endif; ?>
+                            <?php if (!$costs): ?><tr><td colspan="5"><div class="empty-state"><i class="bi bi-inbox"></i>Sin costos indirectos.</div></td></tr><?php endif; ?>
                             </tbody>
                         </table>
                     </div>

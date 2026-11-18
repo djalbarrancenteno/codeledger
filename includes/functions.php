@@ -252,8 +252,8 @@ function badge_for_status(string $status): string
     return match ($status) {
         'Aprobado', 'Cobrada', 'Entregado', 'Conectado', 'Closed', 'Activo', 'Reconocido' => 'success',
         'Pendiente', 'En Curso', 'Emitida', 'Pre-factura', 'Advertencia', 'En Desarrollo' => 'warning',
-        'Facturado', 'En Produccion', 'Reconociendo' => 'info',
-        'Anulada', 'Error', 'Crítica', 'Open', 'Amortizado' => 'danger',
+        'Facturado', 'En Produccion', 'Reconociendo', 'Open' => 'info',
+        'Anulada', 'Error', 'Crítica', 'Vencida', 'Vencido', 'Excedido' => 'danger',
         default => 'secondary',
     };
 }

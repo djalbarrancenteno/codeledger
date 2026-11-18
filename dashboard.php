@@ -198,16 +198,29 @@ $projectChart = [
 
 render_header('Dashboard financiero', $user, 'dashboard');
 ?>
-<div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-3">
-    <div>
-        <h2 class="section-title"><?= $isCfo ? 'Vista consolidada de la operación' : 'Proyectos bajo tu gestión' ?></h2>
-        <div class="section-sub">Datos al <?= fmt_date(date('Y-m-d')) ?> · Moneda de consolidación USD</div>
+<?php
+// Solo presentación: reutiliza variables ya calculadas arriba (sin consultas nuevas).
+$heroName = explode(' ', trim((string)$user['nombre_completo']))[0] ?: 'equipo';
+?>
+<section class="dash-hero">
+    <div class="dash-hero-top">
+        <div>
+            <span class="dash-eyebrow"><?= $isCfo ? 'Vista consolidada de la operación' : 'Proyectos bajo tu gestión' ?></span>
+            <h2>Hola, <?= e($heroName) ?></h2>
+            <div class="dash-sub">Datos al <?= fmt_date(date('Y-m-d')) ?> · Moneda de consolidación USD</div>
+        </div>
+        <div class="dash-hero-actions">
+            <a href="billing.php" class="btn btn-hero btn-sm"><i class="bi bi-receipt"></i> Facturación</a>
+            <a href="reports.php" class="btn btn-hero-solid btn-sm"><i class="bi bi-graph-up-arrow"></i> Ver reportes</a>
+        </div>
     </div>
-    <div class="d-flex gap-2">
-        <a href="billing.php" class="btn btn-ghost btn-sm"><i class="bi bi-receipt"></i> Facturación</a>
-        <a href="reports.php" class="btn btn-primary btn-sm"><i class="bi bi-graph-up-arrow"></i> Ver reportes</a>
+    <div class="hero-pills">
+        <div class="hero-pill <?= $margin >= 0 ? 'ok' : 'bad' ?>"><i class="bi bi-graph-up-arrow"></i> Margen <b><?= fmt_ratio_pct($marginPct) ?></b></div>
+        <div class="hero-pill <?= $cpi >= 1 ? 'ok' : 'warn' ?>"><i class="bi bi-activity"></i> CPI <b><?= number_format($cpi, 2, ',', '.') ?></b></div>
+        <div class="hero-pill <?= $alerts > 0 ? 'warn' : 'ok' ?>"><i class="bi bi-bell"></i> Alertas <b><?= $alerts ?></b></div>
+        <div class="hero-pill info"><i class="bi bi-kanban"></i> Proyectos activos <b><?= count($metrics) ?></b></div>
     </div>
-</div>
+</section>
 
 <div class="row g-3 mb-4">
     <div class="col-6 col-xl-3">
@@ -384,12 +397,12 @@ document.addEventListener('DOMContentLoaded', () => {
         data: {
             labels: <?= json_encode($series['labels']) ?>,
             datasets: [
-                { label: 'Ingresos', data: <?= json_encode($series['revenue']) ?>, backgroundColor: 'rgba(79,70,229,.85)', borderRadius: 5, barPercentage: .62 },
-                { label: 'Costo operativo', data: <?= json_encode($series['cost']) ?>, backgroundColor: 'rgba(225,29,72,.55)', borderRadius: 5, barPercentage: .62 },
-                { label: 'Margen', data: <?= json_encode($series['margin']) ?>, type: 'line', borderColor: '#0d9488', backgroundColor: '#0d9488', tension: .35, pointRadius: 3, borderWidth: 2 }
+                { label: 'Ingresos', data: <?= json_encode($series['revenue']) ?>, backgroundColor: c => CL.gradient(c, 'rgba(129,140,248,.95)', 'rgba(79,70,229,.88)'), borderRadius: 7, borderSkipped: false, barPercentage: .62 },
+                { label: 'Costo operativo', data: <?= json_encode($series['cost']) ?>, backgroundColor: c => CL.gradient(c, 'rgba(251,113,133,.85)', 'rgba(225,29,72,.6)'), borderRadius: 7, borderSkipped: false, barPercentage: .62 },
+                { label: 'Margen', data: <?= json_encode($series['margin']) ?>, type: 'line', borderColor: '#14b8a6', backgroundColor: '#14b8a6', tension: .35, pointRadius: 3.5, pointHoverRadius: 5, borderWidth: 2.5 }
             ]
         },
-        options: { responsive: true, maintainAspectRatio: false, scales: { y: { ticks: { callback: v => 'USD ' + (v/1000).toFixed(0) + 'K' } } } }
+        options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { position: 'top', align: 'end' } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: v => 'USD ' + (v/1000).toFixed(0) + 'K' } } } }
     });
     <?php else: ?>
     new Chart(ctx, {
@@ -397,11 +410,11 @@ document.addEventListener('DOMContentLoaded', () => {
         data: {
             labels: <?= json_encode($projectChart['labels']) ?>,
             datasets: [
-                { label: 'BAC', data: <?= json_encode($projectChart['bac']) ?>, backgroundColor: 'rgba(79,70,229,.35)', borderRadius: 5 },
-                { label: 'Costo real', data: <?= json_encode($projectChart['ac']) ?>, backgroundColor: 'rgba(225,29,72,.75)', borderRadius: 5 }
+                { label: 'BAC', data: <?= json_encode($projectChart['bac']) ?>, backgroundColor: c => CL.gradient(c, 'rgba(129,140,248,.6)', 'rgba(79,70,229,.3)'), borderRadius: 7, borderSkipped: false },
+                { label: 'Costo real', data: <?= json_encode($projectChart['ac']) ?>, backgroundColor: c => CL.gradient(c, 'rgba(251,113,133,.95)', 'rgba(225,29,72,.75)'), borderRadius: 7, borderSkipped: false }
             ]
         },
-        options: { responsive: true, maintainAspectRatio: false, scales: { y: { ticks: { callback: v => 'USD ' + v + 'K' } } } }
+        options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { legend: { position: 'top', align: 'end' } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: v => 'USD ' + v + 'K' } } } }
     });
     <?php endif; ?>
 });
